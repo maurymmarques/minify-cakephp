@@ -15,6 +15,7 @@ https://github.com/mrclay/minify
 
 http://code.google.com/p/minify
 
+For this plugin, the application Minify is inside Vendor
 
 ### Version
 
