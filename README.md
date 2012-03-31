@@ -10,6 +10,7 @@ Redistributions of files must retain the above copyright notice.
 It combines multiple CSS or Javascript files, removes unnecessary whitespace and comments, and serves them with gzip encoding and optimal client-side cache headers. 
 More info: 
 	https://github.com/mrclay/minify
+
 	http://code.google.com/p/minify
 
 
