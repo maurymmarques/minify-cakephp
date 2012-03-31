@@ -11,9 +11,9 @@ It combines multiple CSS or Javascript files, removes unnecessary whitespace and
 
 More info: 
 
-	https://github.com/mrclay/minify
+https://github.com/mrclay/minify
 
-	http://code.google.com/p/minify
+http://code.google.com/p/minify
 
 
 ### Version
