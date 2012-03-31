@@ -45,7 +45,7 @@ Create a folder called "minify" in app/tmp/cache and give permission to read and
 
 Enable the helper using the [plugin syntax](http://book.cakephp.org/2.0/en/appendices/glossary.html#term-plugin-syntax)
 
-```
+```php
 <?php
 class BakeriesController extends AppController {
     public $helpers = array('Minify.Minify');
