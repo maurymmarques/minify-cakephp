@@ -31,7 +31,7 @@ Bootstrap the plugin in app/Config/bootstrap.php:
 
 ```php
 <?php
-CakePlugin::load('Minify' => array('routes' => true));
+CakePlugin::load(array('Minify' => array('routes' => true)));
 ```
 
 
