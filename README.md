@@ -46,9 +46,10 @@ Configure::write('MinifyAsset', true);
 
 If you do not want to use compression, set false.
 
-```
+Note
+====
+
 Create a folder called **"minify"** in `app/tmp/cache` and give permission to **read** and **write**.
-```
 
 ### Usage
 
