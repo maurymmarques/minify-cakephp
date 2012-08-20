@@ -121,7 +121,7 @@ $min_serveOptions['maxAge'] = 1800;
  *
  * // = shortcut for DOCUMENT_ROOT
  */
-//$min_serveOptions['minApp']['allowDirs'] = array('//js', '//css');
+$min_serveOptions['minApp']['allowDirs'] = array('//js', '//css');
 
 /**
  * Set to true to disable the "f" GET parameter for specifying files.
@@ -152,7 +152,7 @@ $min_serveOptions['minApp']['groupsOnly'] = false;
  * array('//static' => 'D:\\staticStorage')  // Windows
  * </code>
  */
-$min_symlinks = array();
+$min_symlinks = (isset($_GET['symlinks']) ? $_GET['symlinks'] : array());
 
 
 /**
