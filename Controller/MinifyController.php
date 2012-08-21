@@ -34,14 +34,13 @@ class MinifyController extends Controller {
 				$plugin = $first;
 			}
 
-			$pluginPath = (! empty($plugin) ? '..' . DS . 'Plugin' . DS . $plugin . DS . WEBROOT_DIR . DS : '');
-			$file = $pluginPath . $type . DS . $file . '.' . $type;
+			$pluginPath = (!empty($plugin) ? '../Plugin/' . $plugin . '/' . WEBROOT_DIR . '/' : '');
+		    $file = $pluginPath . $type . '/' . $file . '.' . $type;
 			$newFiles[] = $file;
 
 			if (! empty($plugin) && ! isset($plugins[$plugin])) {
 				$plugins[$plugin] = true;
-
-				$pluginSymlinks['/' . $this->request->base . '/' . Inflector::underscore($plugin)] = APP . 'Plugin' . DS . $plugin . DS . WEBROOT_DIR;
+				$pluginSymlinks['/' . $this->request->base . '/' . Inflector::underscore($plugin)] = APP . 'Plugin/' . $plugin . '/' . WEBROOT_DIR;
 			}
 		}
 		$_GET['f'] = implode(',', $newFiles);
