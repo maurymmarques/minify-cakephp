@@ -36,11 +36,9 @@ class MinifyHelper extends AppHelper {
 
 		$path = '/min-' . $ext . '?f=';
 
-		foreach ($assets as $asset) {
-			$path .= ($ext . '/' . $asset . '.' . $ext . ',');
-		}
+		$path .= implode(',', $assets);
 
-		return substr($path, 0, count($path) - 2);
+		return $path;
 	}
 }
 
