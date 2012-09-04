@@ -19,8 +19,14 @@ class MinifyController extends Controller {
 	public function index($type) {
 		$files = array_unique(explode(',', $_GET['f']));
 		$plugins = array();
-		$pluginSymlinks = array();
+		$symLinks = array();
 		$newFiles = array();
+		
+		if (!empty($this->request->base))
+		{
+		    $symLinks['/' . $this->request->base] = WWW_ROOT;
+		}
+		
 		foreach ($files as &$file)
 		{
 		    if (empty($file))
@@ -43,11 +49,12 @@ class MinifyController extends Controller {
 		    {
 			$plugins[$plugin] = true;
 
-			$pluginSymlinks['/' . $this->request->base . '/' . Inflector::underscore($plugin)] = APP . 'Plugin/' . $plugin . '/' . WEBROOT_DIR;
+			$symLinks['/' . $this->request->base . '/' . Inflector::underscore($plugin)] = APP . 'Plugin/' . $plugin . '/' . WEBROOT_DIR . '/';
 		    }
 		}
+
 		$_GET['f'] = implode(',', $newFiles);
-		$_GET['symlinks'] = $pluginSymlinks;
+		$_GET['symlinks'] = $symLinks;
 
 		App::import('Vendor', 'Minify.minify/index');
 
