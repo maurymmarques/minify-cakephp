@@ -7,20 +7,23 @@ App::uses('AppHelper', 'View/Helper');
  * Requirements:
  * 		An entry in core.php - "MinifyAsset" - value of which is either set 'true' or 'false'.
  * 		False would be usually set during development and/or debugging. True should be set in production mode.
- *
  * @package		app.View.Helper
  */
 class MinifyHelper extends AppHelper {
 
+/**
+ * Helpers
+ *
+ * @var array
+ */
 	public $helpers = array('Html');
 
 /**
- * Returns one or many `<script>` tags depending on the number of scripts given.
+ * Creates a link element for javascript files.
  *
  * @param string|array $url String or array of javascript files to include
- * @param array|boolean $options Array of options, and html attributes see above. If boolean sets $options['inline'] = value
- * @return mixed String of `<script />` tags or null if $inline is false or if $once is true and the file has been
- *   included before.
+ * @param array $options Array of options, and html attributes
+ * @return string
  * @link http://book.cakephp.org/2.0/en/core-libraries/helpers/html.html#HtmlHelper::script
  */
 	public function script($url, $options = array()) {
@@ -34,12 +37,10 @@ class MinifyHelper extends AppHelper {
 /**
  * Creates a link element for CSS stylesheets.
  *
- * @param string|array $path The name of a CSS style sheet or an array containing names of
- *   CSS stylesheets. If `$path` is prefixed with '/', the path will be relative to the webroot
- *   of your application. Otherwise, the path will be relative to your CSS path, usually webroot/css.
- * @param string $rel Rel attribute. Defaults to "stylesheet". If equal to 'import' the stylesheet will be imported.
- * @param array $options Array of HTML attributes.
- * @return string CSS <link /> or <style /> tag, depending on the type of link.
+ * @param string|array $path The name of a CSS style sheet or an array containing names of CSS stylesheets.
+ * @param string $rel Rel attribute. Defaults to "stylesheet". If equal to 'import' the stylesheet will be imported
+ * @param array $options Array of options, and html attributes
+ * @return string CSS <link /> or <style /> tag, depending on the type of link
  * @link http://book.cakephp.org/2.0/en/core-libraries/helpers/html.html#HtmlHelper::css
  */
 	public function css($path, $rel = null, $options = array()) {
@@ -51,21 +52,32 @@ class MinifyHelper extends AppHelper {
 	}
 
 /**
- * Build path for minified files
+ * Build the path for minified files.
  *
- * @param mixed $assets
- * @param string $ext
- * @return string
+ * @param string|array $assets Sring or array containing names of assests files
+ * @param string $type js|css
+ * @return string JS or CSS tag, depending on the type of link
  */
-	private function _path($assets, $ext) {
+	private function _path($assets, $type) {
 		if (!is_array($assets)) {
 			$assets = array($assets);
 		}
 
-		$path = '/min-' . $ext . '?f=';
-		$path .= implode(',', $assets);
+		$path = '/min-' . $type . '?f=';
 
-		return $path;
+		if ($type === 'js') {
+			$options = array('pathPrefix' => JS_URL, 'ext' => '.js');
+		} else if ($type === 'css') {
+			$options = array('pathPrefix' => CSS_URL, 'ext' => '.css');
+		}
+
+		foreach ($assets as $currentKey => $asset) {
+			$path .= $this->assetUrl($asset, $options) . ',';
+		}
+
+		return substr($path, 0, count($path) - 2);
 	}
+
 }
+
 ?>
