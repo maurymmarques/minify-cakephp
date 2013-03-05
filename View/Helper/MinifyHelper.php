@@ -63,7 +63,12 @@ class MinifyHelper extends AppHelper {
 			$assets = array($assets);
 		}
 
-		$path = '/min-' . $type . '?f=';
+		$debug = '';
+		if (Configure::read('debug') > 0) {
+			$debug = '&debug';
+		}
+		
+		$path = "/min-{$type}?f=";
 
 		if ($type === 'js') {
 			$options = array('pathPrefix' => JS_URL, 'ext' => '.js');
@@ -71,13 +76,33 @@ class MinifyHelper extends AppHelper {
 			$options = array('pathPrefix' => CSS_URL, 'ext' => '.css');
 		}
 
+		$files = array();
 		foreach ($assets as $currentKey => $asset) {
-			$path .= $this->assetUrl($asset, $options) . ',';
+			array_push($files, $this->assetUrl($asset, $options));
 		}
 
-		return substr($path, 0, count($path) - 2);
+		return $path . join(',', $files) . $debug;
+	}
+
+/**
+ * Creates a link element for javascript files.
+ * 
+ * @param string|array $url Either a relative string url like `/products/view/23` or
+ *    an array of url parameters. Using an array for urls will allow you to leverage
+ *    the reverse routing features of CakePHP.
+ * @param boolean $full If true, the full base URL will be prepended to the result
+ * @return string  Full translated URL with base path.
+ * @link http://book.cakephp.org/2.0/en/views/helpers.html
+ */
+	public function url($url = null, $full = false) {
+		$matches = array();
+		
+		if (Configure::read('MinifyAsset') === true && (preg_match('/css/i', $url, $matches) || preg_match('/js/i', $url, $matches))) {
+			return parent::url($this->_path($url, $matches[0]), $full);
+		} else {
+			return parent::url($url, $full);
+		}
+
 	}
 
 }
-
-?>
