@@ -71,7 +71,8 @@ $min_cachePath = TMP . 'cache' . DS . 'minify';
  * If /min/ is directly inside your document root, just uncomment the
  * second line. The third line might work on some Apache servers.
  */
-$min_documentRoot = WWW_ROOT;
+App::uses('Asset', 'Minify.Utility/Routing');
+list($min_documentRoot, $_GET['f']) = Asset::getAssetFile($_GET['f']);
 //$min_documentRoot = substr(__FILE__, 0, -15);
 //$min_documentRoot = $_SERVER['SUBDOMAIN_DOCUMENT_ROOT'];
 
