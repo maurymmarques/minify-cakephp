@@ -23,7 +23,7 @@ class MinifyController extends Controller {
 	}
 
 	private function _adjustFilenames() {
-		$baseUrl = $this->request->base;
+		$baseUrl = substr($this->request->base, 1) . '/';
 		$baseLen = strlen($baseUrl);
 		$files = explode(',', $_GET['f']);
 		foreach ($files as &$file) {
