@@ -1,6 +1,6 @@
 # Minify plugin for CakePHP
 
-This plugin was developed to facilitate the minify use with CakePHP
+This plugin was developed to facilitate Minify use with CakePHP
 
 [Minify](https://github.com/mrclay/minify) is an application that combines multiple CSS or Javascript files, removes unnecessary whitespace and comments, and serves them with gzip encoding and optimal client-side cache headers. 
 
