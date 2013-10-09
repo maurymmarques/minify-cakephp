@@ -10,7 +10,7 @@ For this plugin, the Minify application is inside Vendor
 
 ### Version
 
-Written for CakePHP 2.0+
+Written for CakePHP 2.x
 
 ### Copyright
 
