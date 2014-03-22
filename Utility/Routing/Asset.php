@@ -15,12 +15,26 @@ class Asset {
  */
 	static function getAssetFile($url) {
 		$parts = explode('/', $url);
+
 		if ($parts[0] === 'theme') {
+			$file = '';
+			$fileFragments = explode(',', $url);
+			$fileNumber = count($fileFragments);
+			foreach ($fileFragments as $k => $fileFragment) {
+				$fileParts = explode('/', $fileFragment);
+				unset($fileParts[0], $fileParts[1]);
+				if ($fileNumber == $k+1) {
+					$file .= urldecode(implode(DS, $fileParts));
+				} else {
+					$file .= urldecode(implode(DS, $fileParts)) . ',';
+				}
+			}
 			$themeName = $parts[1];
-			unset($parts[0], $parts[1]);
-			$fileFragment = urldecode(implode(DS, $parts));
-			$path = App::themePath($themeName) . 'webroot';
-			return array($path, $fileFragment);
+			$path = Configure::read('App.www_root') . 'theme' . DS . $themeName;
+			if (!file_exists($path)) {
+				$path = App::themePath($themeName) . 'webroot';
+			}
+			return array($path, $file);
 		}
 
 		$plugin = Inflector::camelize($parts[0]);
