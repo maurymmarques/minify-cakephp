@@ -18,7 +18,7 @@ Copyright (c) 2011 Maury M. Marques
 
 ## Installation
 
-You can clone the plugin into your project (or if you want you can use as a [submodule](http://help.github.com/submodules)):
+You can clone the plugin into your project (or if you want you can use it as a [submodule](http://help.github.com/submodules)):
 
 ```
 cd path/to/app/Plugin or /plugins
@@ -39,11 +39,11 @@ Set the configuration file in your app/Config/core.php
 Configure::write('MinifyAsset', true);
 ```
 
-If you do not want to use compression, set false.
+If you do not want to use compression, set `false`.
 
 ### Note
 
-Create a folder called **"minify"** in `app/tmp/cache` and give permission to **read** and **write**.
+Create a folder called **"minify"** in `app/tmp/cache` and give it permission to **read** and **write**.
 
 ## Usage
 
@@ -55,7 +55,7 @@ class BakeriesController extends AppController {
 }
 ```
 
-This plugin uses [HtmlHelper](http://book.cakephp.org/2.0/en/core-libraries/helpers/html.html), and works virtually the same.
+This plugin uses [HtmlHelper](http://book.cakephp.org/2.0/en/core-libraries/helpers/html.html), and virtually it works in the same way.
 
 In the view you can use something like:
 
