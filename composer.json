@@ -1,6 +1,6 @@
 {
     "name": "maurymmarques/minify-cakephp",
-    "description": "A plugin that facilitates the use of PHP Minify with CakePHP",
+    "description": "A CakePHP plugin that facilitates the use of PHP Minify with CakePHP",
     "type": "cakephp-plugin",
     "keywords": ["cakephp", "minify"],
     "homepage": "https://github.com/maurymmarques/minify-cakephp",
