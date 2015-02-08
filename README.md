@@ -28,7 +28,12 @@ Add the plugin to your project's `composer.json` - something like this:
 {
   "require": {
     "maurymmarques/minify-plugin": "dev-master"
-  }
+  },
+  "extra": {
+		"installer-paths": {
+			"app/Plugin/Minify": ["maurymmarques/minify-plugin"]
+		}
+	}
 }
 ```
 Because this plugin has the type `cakephp-plugin` set in it's own `composer.json`, composer knows to install it inside your `/Plugin` directory, rather than in the usual vendors file.
