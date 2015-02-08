@@ -33,10 +33,9 @@ Because this plugin has the type `cakephp-plugin` set in it's own `composer.json
 
 _[GIT Submodule]_
 
-In your app directory type:
+In your app directory (`app/Plugin`) type:
 
 ```bash
-cd app
 git submodule add git://github.com/maurymmarques/minify-cakephp.git Plugin/Minify
 git submodule init
 git submodule update
@@ -44,10 +43,9 @@ git submodule update
 
 _[GIT Clone]_
 
-In your plugin directory type:
+In your plugin directory (`app/Plugin` or `plugins`) type:
 
 ```bash
-cd app/Plugin or /plugins
 git clone https://github.com/maurymmarques/minify-cakephp.git Minify
 ```
 
