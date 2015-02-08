@@ -56,7 +56,7 @@ _[Manual]_
 * Download the [Minify archive](https://github.com/maurymmarques/minify-cakephp/archive/master.zip).
 * Unzip that download.
 * Rename the resulting folder to `Minify`
-* Then copy this folder into `app/Plugin/`
+* Then copy this folder into `app/Plugin/` or `plugins`
 
 ## Configuration
 
