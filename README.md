@@ -18,6 +18,8 @@ Copyright (c) 2011 Maury M. Marques
 
 ## Installation
 
+You can install this plugin using Composer, GIT Submodule, GIT Clone or Manually
+
 _[Using [Composer](http://getcomposer.org/)]_
 
 Add the plugin to your project's `composer.json` - something like this:
