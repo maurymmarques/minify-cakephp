@@ -18,20 +18,53 @@ Copyright (c) 2011 Maury M. Marques
 
 ## Installation
 
-You can clone the plugin into your project (or if you want you can use it as a [submodule](http://help.github.com/submodules)):
+_[Using [Composer](http://getcomposer.org/)]_
 
+Add the plugin to your project's `composer.json` - something like this:
+
+```javascript
+{
+  "require": {
+    "maurymmarques/minify-plugin": "dev-master"
+  }
+}
 ```
-cd path/to/app/Plugin or /plugins
+Because this plugin has the type `cakephp-plugin` set in it's own `composer.json`, composer knows to install it inside your `/Plugin` directory, rather than in the usual vendors file.
+
+_[GIT Submodule]_
+
+In your app directory type:
+
+```bash
+cd app
+git submodule add git://github.com/maurymmarques/minify-cakephp.git Plugin/Minify
+git submodule init
+git submodule update
+```
+
+_[GIT Clone]_
+
+In your plugin directory type:
+
+```bash
+cd app/Plugin or /plugins
 git clone https://github.com/maurymmarques/minify-cakephp.git Minify
 ```
+
+_[Manual]_
+
+* Download the [Minify archive](https://github.com/maurymmarques/minify-cakephp/archive/master.zip).
+* Unzip that download.
+* Rename the resulting folder to `Minify`
+* Then copy this folder into `app/Plugin/`
+
+## Configuration
 
 Bootstrap the plugin in app/Config/bootstrap.php:
 
 ```php
 CakePlugin::load(array('Minify' => array('routes' => true)));
 ```
-
-## Configuration
 
 Set the configuration file in your app/Config/core.php
 
