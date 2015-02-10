@@ -36,6 +36,8 @@ Add the plugin to your project's `composer.json` - something like this:
 	}
 }
 ```
+Then just run `composer install`
+
 Because this plugin has the type `cakephp-plugin` set in it's own `composer.json`, composer knows to install it inside your `/Plugin` directory, rather than in the usual vendors file.
 
 _[GIT Submodule]_
