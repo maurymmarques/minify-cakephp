@@ -1,12 +1,25 @@
 {
-    "name": "maurymmarques/minify-cakephp",
-	"license": "MIT",
+    "name": "maurymmarques/minify-plugin",
+    "description": "A CakePHP plugin that facilitates the use of PHP Minify with CakePHP",
     "type": "cakephp-plugin",
-	"version": "1.0.0",
+    "keywords": ["cakephp", "minify", "plugin"],
+    "homepage": "https://github.com/maurymmarques/minify-cakephp",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Maury M. Marques",
+            "role": "Author"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/maurymmarques/minify-cakephp/issues",
+        "source": "https://github.com/maurymmarques/minify-cakephp"
+    },
     "require": {
+        "php": ">=5.3.0",
         "composer/installers": "*"
     },
- 	"extra": {
+    "extra": {
         "installer-name": "Minify"
     }
 }
