@@ -108,6 +108,11 @@ class JSMin {
             $mbIntEnc = mb_internal_encoding();
             mb_internal_encoding('8bit');
         }
+
+        if (isset($this->input[0]) && $this->input[0] === "\xef") {
+            $this->input = substr($this->input, 3);
+        }
+
         $this->input = str_replace("\r\n", "\n", $this->input);
         $this->inputLength = strlen($this->input);
 
@@ -200,8 +205,9 @@ class JSMin {
                             break;
                         }
                         if ($this->isEOF($this->a)) {
+                            $byte = $this->inputIndex - 1;
                             throw new JSMin_UnterminatedStringException(
-                                "JSMin: Unterminated String at byte {$this->inputIndex}: {$str}");
+                                "JSMin: Unterminated String at byte {$byte}: {$str}");
                         }
                         $str .= $this->a;
                         if ($this->a === '\\') {
@@ -251,8 +257,9 @@ class JSMin {
                             $this->a = $this->get();
                             $pattern .= $this->a;
                         } elseif ($this->isEOF($this->a)) {
+                            $byte = $this->inputIndex - 1;
                             throw new JSMin_UnterminatedRegExpException(
-                                "JSMin: Unterminated RegExp at byte {$this->inputIndex}: {$pattern}");
+                                "JSMin: Unterminated RegExp at byte {$byte}: {$pattern}");
                         }
                         $this->output .= $this->a;
                         $this->lastByteOut = $this->a;
@@ -269,27 +276,39 @@ class JSMin {
     protected function isRegexpLiteral()
     {
         if (false !== strpos("(,=:[!&|?+-~*{;", $this->a)) {
-            // we obviously aren't dividing
+            // we can't divide after these tokens
             return true;
         }
+
+        // check if first non-ws token is "/" (see starts-regex.js)
+        $length = strlen($this->output);
         if ($this->a === ' ' || $this->a === "\n") {
-            $length = strlen($this->output);
             if ($length < 2) { // weird edge case
                 return true;
             }
-            // you can't divide a keyword
-            if (preg_match('/(?:case|else|in|return|typeof)$/', $this->output, $m)) {
-                if ($this->output === $m[0]) { // odd but could happen
-                    return true;
-                }
-                // make sure it's a keyword, not end of an identifier
-                $charBeforeKeyword = substr($this->output, $length - strlen($m[0]) - 1, 1);
-                if (! $this->isAlphaNum($charBeforeKeyword)) {
-                    return true;
-                }
-            }
         }
-        return false;
+
+        // if the "/" follows a keyword, it must be a regexp, otherwise it's best to assume division
+
+        $subject = $this->output . trim($this->a);
+        if (!preg_match('/(?:case|else|in|return|typeof)$/', $subject, $m)) {
+            // not a keyword
+            return false;
+        }
+
+        // can't be sure it's a keyword yet (see not-regexp.js)
+        $charBeforeKeyword = substr($subject, 0 - strlen($m[0]) - 1, 1);
+        if ($this->isAlphaNum($charBeforeKeyword)) {
+            // this is really an identifier ending in a keyword, e.g. "xreturn"
+            return false;
+        }
+
+        // it's a regexp. Remove unneeded whitespace after keyword
+        if ($this->a === ' ' || $this->a === "\n") {
+            $this->a = '';
+        }
+
+        return true;
     }
 
     /**

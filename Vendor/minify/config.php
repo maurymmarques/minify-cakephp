@@ -2,7 +2,7 @@
 /**
  * Configuration for "min", the default application built with the Minify
  * library
- *
+ * 
  * @package Minify
  */
 
@@ -11,6 +11,13 @@
  * Allow use of the Minify URI Builder app. Only set this to true while you need it.
  */
 $min_enableBuilder = false;
+
+
+/**
+ * Concatenate but do not minify the files. This can be used for testing.
+ */
+$min_concatOnly = false;
+
 
 /**
  * If non-empty, the Builder will be protected with HTTP Digest auth.
@@ -73,7 +80,7 @@ $min_cachePath = TMP . 'cache' . DS . 'minify';
  */
 App::uses('Asset', 'Minify.Utility/Routing');
 if (!empty($_GET['f'])) {
-	list($min_documentRoot, $_GET['f']) = Asset::getAssetFile($_GET['f']);
+    list($min_documentRoot, $_GET['f']) = Asset::getAssetFile($_GET['f']);
 }
 //$min_documentRoot = substr(__FILE__, 0, -15);
 //$min_documentRoot = $_SERVER['SUBDOMAIN_DOCUMENT_ROOT'];
@@ -155,7 +162,7 @@ $min_serveOptions['minApp']['groupsOnly'] = false;
  * array('//static' => 'D:\\staticStorage')  // Windows
  * </code>
  */
-$min_symlinks = (isset($_GET['symlinks']) ? $_GET['symlinks'] : array());
+$min_symlinks = (isset($_GET['symlinks']) ? $_GET['symlinks'] : array('//' => $_SERVER['DOCUMENT_ROOT']));
 
 
 /**
