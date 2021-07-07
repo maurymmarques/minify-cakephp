@@ -69,18 +69,27 @@ class MinifyHelper extends AppHelper {
 			$options = array('pathPrefix' => CSS_URL, 'ext' => '.css');
 		}
 
-		$assetTimestamp = Configure::read('Asset.timestamp');
-		Configure::write('Asset.timestamp', false);
-
 		$files = array();
+		$timestamp = null;
 		foreach ($assets as $asset) {
-			array_push($files, substr($this->assetUrl($asset, $options), 1));
+			$url = $this->assetUrl($asset, $options);
+			if (preg_match('/^(.+)\?(\d+)$/', $url, $m)) {
+				$url = $m[1];
+				$ts = (int)$m[2];
+				if ($timestamp) {
+					$timestamp = max($timestamp, $ts);
+				} else {
+					$timestamp = $ts;
+				}
+			}
+			array_push($files, substr($url, 1));
 		}
-
-		Configure::write('Asset.timestamp', $assetTimestamp);
 
 		$path = '/min-' . $type . '?f=';
 		$path = $path . join(',', $files);
+		if ($timestamp) {
+			$path = $path . '&' . $timestamp;
+		}
 
 		return $path;
 	}
